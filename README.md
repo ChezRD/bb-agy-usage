@@ -13,13 +13,11 @@ keyring.
 
 Labels follow BB's short usage style:
 
-- `5h`
-- `7d`
-- `5h - Gemini`
-- `7d - Gemini`
-- `5h - Claude`
-- `7d - Claude`
 - `7d - Argon`
+- `7d - Gemini`
+- `5h - Gemini`
+- `7d - Claude & GPT`
+- `5h - Claude & GPT`
 
 The plugin maps `agy --print /usage` output into BB's native usage resources
 for the `acp-antigravity` provider. The card appears in the Usage menu next to

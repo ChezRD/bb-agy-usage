@@ -18,6 +18,7 @@ const DURATION_LABELS: Record<UsageWindow["kind"], string> = {
   weekly: "7d",
   custom: "",
 };
+const MODEL_ORDER = [/argon/iu, /gemini/iu, /claude/iu] as const;
 
 export class CommandError extends Error {
   readonly code: string | number | undefined;
@@ -146,7 +147,16 @@ export function parseAgyUsage(stdout: string): UsageWindow[] {
     });
   }
 
+  windows.sort(
+    (left, right) => modelRank(left.model) - modelRank(right.model),
+  );
   return windows;
+}
+
+function modelRank(model: string | null): number {
+  if (model === null) return MODEL_ORDER.length;
+  const index = MODEL_ORDER.findIndex((pattern) => pattern.test(model));
+  return index === -1 ? MODEL_ORDER.length : index;
 }
 
 interface UsageRow {
@@ -228,9 +238,7 @@ function customLabel(label: string): string {
 }
 
 function shortModel(model: string): string {
-  if (model === "Claude & GPT") return "Claude";
-  if (model === "Gemini 4 Argon") return "Argon";
-  return model;
+  return model === "Gemini 4 Argon" ? "Argon" : model;
 }
 
 function modelFamily(scope: string): string | null {
