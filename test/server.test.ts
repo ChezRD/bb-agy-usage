@@ -26,7 +26,8 @@ test("maps a successful host result to a native usage measurement", () => {
   if (measurement.usage.status === "ok") {
     assert.equal(measurement.usage.planLabel, "Antigravity");
     assert.equal(measurement.usage.windows[0]?.cost, null);
-    assert.equal(measurement.usage.windows[0]?.kind, "weekly");
+    assert.equal(measurement.usage.windows[0]?.kind, "custom");
+    assert.equal(measurement.usage.windows[0]?.model, null);
   }
 });
 

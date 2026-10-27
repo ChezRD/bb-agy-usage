@@ -186,8 +186,13 @@ export function toMeasurement(
         plan: null,
         accountEmail: null,
         planLabel: "Antigravity",
+        // BB rewrites five-hour/weekly labels from kind and model. Keeping the
+        // short label (`5h - Claude`, `7d - Gemini`) means emitting it as a
+        // custom window so BB passes it through unchanged.
         windows: state.windows.map((window) => ({
           ...window,
+          kind: "custom",
+          model: null,
           cost: null,
         })),
       },
