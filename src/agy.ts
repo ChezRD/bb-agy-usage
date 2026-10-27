@@ -237,7 +237,8 @@ function labelForWindow(
   rawLabel: string,
 ): string {
   const duration = DURATION_LABELS[kind] || customLabel(rawLabel);
-  return model === null ? duration : `${duration} - ${shortModel(model)}`;
+  const suffix = model === null ? null : shortModel(model);
+  return suffix === null ? duration : `${duration} - ${suffix}`;
 }
 
 function customLabel(label: string): string {
@@ -246,7 +247,8 @@ function customLabel(label: string): string {
   return cleaned === "" ? "Custom" : cleaned;
 }
 
-function shortModel(model: string): string {
+function shortModel(model: string): string | null {
+  if (model === "Gemini") return null;
   return model === "Gemini 4 Argon" ? "Argon" : model;
 }
 

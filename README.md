@@ -13,8 +13,8 @@ keyring.
 
 Labels follow BB's short usage style:
 
-- `5h - Gemini`
-- `7d - Gemini`
+- `5h`
+- `7d`
 - `7d - Argon`
 - `5h - Claude & GPT`
 - `7d - Claude & GPT`

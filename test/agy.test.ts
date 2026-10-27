@@ -25,15 +25,15 @@ test("parses the agy usage table", () => {
   assert.equal(windows.length, 5);
 
   assert.deepEqual(windows[0], {
-    id: "gemini-five-hour-5h-gemini",
-    label: "5h - Gemini",
+    id: "gemini-five-hour-5h",
+    label: "5h",
     kind: "five-hour",
     model: "Gemini",
     usedPercent: 0,
     resetsAt: "2026-10-27T18:30:45.000Z",
   });
   assert.equal(windows[1]?.kind, "weekly");
-  assert.equal(windows[1]?.label, "7d - Gemini");
+  assert.equal(windows[1]?.label, "7d");
   assert.equal(windows[1]?.usedPercent, 6);
   assert.equal(windows[2]?.label, "7d - Argon");
   assert.equal(windows[2]?.model, "Gemini 4 Argon");
