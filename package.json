@@ -1,6 +1,6 @@
 {
   "name": "bb-agy-usage",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Antigravity quota usage for BB Provider Usage, powered by the local agy CLI.",
   "type": "module",
   "license": "MIT",

@@ -25,24 +25,24 @@ test("parses the agy usage table", () => {
   assert.equal(windows.length, 5);
 
   assert.deepEqual(windows[0], {
-    id: "gemini-4-argon-weekly-7d-argon",
-    label: "7d - Argon",
-    kind: "weekly",
-    model: "Gemini 4 Argon",
-    usedPercent: 30,
-    resetsAt: "2026-10-29T11:09:42.000Z",
+    id: "gemini-five-hour-5h-gemini",
+    label: "5h - Gemini",
+    kind: "five-hour",
+    model: "Gemini",
+    usedPercent: 0,
+    resetsAt: "2026-10-27T18:30:45.000Z",
   });
   assert.equal(windows[1]?.kind, "weekly");
   assert.equal(windows[1]?.label, "7d - Gemini");
   assert.equal(windows[1]?.usedPercent, 6);
-  assert.equal(windows[2]?.kind, "five-hour");
-  assert.equal(windows[2]?.label, "5h - Gemini");
-  assert.equal(windows[2]?.usedPercent, 0);
+  assert.equal(windows[2]?.label, "7d - Argon");
+  assert.equal(windows[2]?.model, "Gemini 4 Argon");
+  assert.equal(windows[2]?.usedPercent, 30);
   assert.equal(windows[3]?.model, "Claude & GPT");
-  assert.equal(windows[3]?.label, "7d - Claude & GPT");
-  assert.equal(windows[3]?.usedPercent, 75);
-  assert.equal(windows[4]?.label, "5h - Claude & GPT");
-  assert.equal(windows[4]?.usedPercent, 0);
+  assert.equal(windows[3]?.label, "5h - Claude & GPT");
+  assert.equal(windows[3]?.usedPercent, 0);
+  assert.equal(windows[4]?.label, "7d - Claude & GPT");
+  assert.equal(windows[4]?.usedPercent, 75);
 });
 
 test("ignores ANSI colours and CRLF", () => {

@@ -18,7 +18,12 @@ const DURATION_LABELS: Record<UsageWindow["kind"], string> = {
   weekly: "7d",
   custom: "",
 };
-const MODEL_ORDER = [/argon/iu, /gemini/iu, /claude/iu] as const;
+const KIND_ORDER: Record<UsageWindow["kind"], number> = {
+  "five-hour": 0,
+  daily: 1,
+  weekly: 2,
+  custom: 3,
+};
 
 export class CommandError extends Error {
   readonly code: string | number | undefined;
@@ -148,15 +153,19 @@ export function parseAgyUsage(stdout: string): UsageWindow[] {
   }
 
   windows.sort(
-    (left, right) => modelRank(left.model) - modelRank(right.model),
+    (left, right) =>
+      modelRank(left.model) - modelRank(right.model) ||
+      KIND_ORDER[left.kind] - KIND_ORDER[right.kind],
   );
   return windows;
 }
 
 function modelRank(model: string | null): number {
-  if (model === null) return MODEL_ORDER.length;
-  const index = MODEL_ORDER.findIndex((pattern) => pattern.test(model));
-  return index === -1 ? MODEL_ORDER.length : index;
+  if (model === null) return 3;
+  if (/argon/iu.test(model)) return 1;
+  if (/gemini/iu.test(model)) return 0;
+  if (/claude/iu.test(model)) return 2;
+  return 3;
 }
 
 interface UsageRow {
