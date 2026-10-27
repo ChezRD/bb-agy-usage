@@ -11,6 +11,16 @@ keyring.
 - per-model windows such as `Gemini 4 Argon`
 - reset timestamps and used percentages
 
+Labels follow BB's short usage style:
+
+- `5h`
+- `7d`
+- `5h - Gemini`
+- `7d - Gemini`
+- `5h - Claude`
+- `7d - Claude`
+- `7d - Argon`
+
 The plugin maps `agy --print /usage` output into BB's native usage resources
 for the `acp-antigravity` provider. The card appears in the Usage menu next to
 Codex, Cursor, OpenCode, etc.

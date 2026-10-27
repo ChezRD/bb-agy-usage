@@ -12,6 +12,12 @@ const SPACE_SEPARATOR =
 const AUTH_ERROR =
   /(authentication required|please visit the url to log in|waiting for authentication|authentication failed|not logged in|login required|sign in)/iu;
 const EXPIRED_ERROR = /(token expired|invalid_grant|expired)/iu;
+const DURATION_LABELS: Record<UsageWindow["kind"], string> = {
+  "five-hour": "5h",
+  daily: "1d",
+  weekly: "7d",
+  custom: "",
+};
 
 export class CommandError extends Error {
   readonly code: string | number | undefined;
@@ -125,7 +131,7 @@ export function parseAgyUsage(stdout: string): UsageWindow[] {
 
     const kind = windowKindFromLabel(row.label);
     const model = modelFamily(row.scope);
-    const label = labelForKind(kind, row.label);
+    const label = labelForWindow(kind, model, row.label);
     const baseId = slug(`${model ?? "antigravity"}-${kind}-${label}`);
     const count = seen.get(baseId) ?? 0;
     seen.set(baseId, count + 1);
@@ -206,15 +212,25 @@ function windowKindFromLabel(label: string): UsageWindow["kind"] {
   return "custom";
 }
 
-function labelForKind(
+function labelForWindow(
   kind: UsageWindow["kind"],
-  label: string,
+  model: string | null,
+  rawLabel: string,
 ): string {
-  if (kind === "five-hour") return "5-hour limit";
-  if (kind === "weekly") return "Weekly limit";
-  if (kind === "daily") return "Daily limit";
+  const duration = DURATION_LABELS[kind] || customLabel(rawLabel);
+  return model === null ? duration : `${duration} - ${shortModel(model)}`;
+}
+
+function customLabel(label: string): string {
   const cleaned = label.replace(/\s+(?:remaining|used)$/iu, "").trim();
-  return cleaned === "" ? "Usage limit" : cleaned;
+  if (/^month(?:ly)?\b/iu.test(cleaned)) return "Monthly";
+  return cleaned === "" ? "Custom" : cleaned;
+}
+
+function shortModel(model: string): string {
+  if (model === "Claude & GPT") return "Claude";
+  if (model === "Gemini 4 Argon") return "Argon";
+  return model;
 }
 
 function modelFamily(scope: string): string | null {

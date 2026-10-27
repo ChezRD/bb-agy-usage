@@ -8,8 +8,8 @@ test("maps a successful host result to a native usage measurement", () => {
       status: "ok",
       windows: [
         {
-          id: "gemini-weekly-weekly-limit",
-          label: "Weekly limit",
+          id: "gemini-weekly-7d-gemini",
+          label: "7d - Gemini",
           kind: "weekly",
           model: "Gemini",
           usedPercent: 6,
