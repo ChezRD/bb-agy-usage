@@ -1,0 +1,41 @@
+{
+  "name": "bb-agy-usage",
+  "version": "0.1.0",
+  "description": "Antigravity quota usage for BB Provider Usage, powered by the local agy CLI.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChezRD/bb-agy-usage.git"
+  },
+  "homepage": "https://github.com/ChezRD/bb-agy-usage#readme",
+  "engines": {
+    "node": ">=22.19",
+    "bb": ">=0.43",
+    "bbPluginSdk": ">=0.6.0"
+  },
+  "bb": {
+    "name": "Antigravity Usage (agy)",
+    "description": "Shows Antigravity quota usage in BB Provider Usage using the local agy CLI.",
+    "branding": {
+      "icon": "ChartColumn"
+    },
+    "server": "./server.ts",
+    "host": "./host.ts",
+    "skills": []
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/agy.test.ts test/server.test.ts",
+    "typecheck": "tsc --noEmit",
+    "probe": "node --import tsx scripts/probe.ts"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.6.80",
+    "@types/node": "22.20.5",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}
